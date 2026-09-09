@@ -1,0 +1,17 @@
+# Godot 4+ specific ignores
+.godot/
+/android/
+
+# Godot 4+ engine cache and metadata
+.godot/
+
+# Export build output directories
+/export/
+export_presets.cfg
+
+# Translation and imported cache
+*.translation
+
+# System files
+.DS_Store
+Thumbs.db
