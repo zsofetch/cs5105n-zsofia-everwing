@@ -1,11 +1,22 @@
 [gd_scene format=3 uid="uid://f3y5bdd4s4yq"]
 
+[ext_resource type="Script" uid="uid://7q5ntnroi8j3" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="Texture2D" uid="uid://b02lyoc77ab3b" path="res://character.png" id="1_ig7tw"]
 
 [node name="Node2D" type="Node2D" unique_id=1982399502]
+script = ExtResource("1_0xm2m")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=314201800]
 
 [node name="Character" type="Sprite2D" parent="." unique_id=1311629620]
 position = Vector2(591, 305)
 texture = ExtResource("1_ig7tw")
+
+[node name="Button" type="Button" parent="." unique_id=684277934]
+offset_left = 470.0
+offset_top = 545.0
+offset_right = 657.0
+offset_bottom = 615.0
+text = "Start Game"
+
+[connection signal="pressed" from="Button" to="." method="_on_button_pressed"]
