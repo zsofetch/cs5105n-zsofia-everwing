@@ -140,20 +140,11 @@ cs5105n-zsofia-everwing/
 
 ---
 
-## Contributing
-
-This is a course project. Contributions and feedback are welcome. Please ensure:
-1. All binary assets use Git LFS
-2. Code follows Godot/GDScript conventions
-3. Scenes are properly organized in the `scenes/` directory
-
----
-
 ## License
 
 This project is developed as part of CS-5105N coursework.
 
 ---
 
-**Last Updated:** Week 1 (Initial Setup)  
+**Last Updated:** Week 2 (Gameplay Mechanics)  
 **Developer:** Zsofia Everwing
