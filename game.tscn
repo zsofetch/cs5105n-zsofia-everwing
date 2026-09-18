@@ -1,6 +1,12 @@
 [gd_scene format=3 uid="uid://dulol8qjmx00b"]
 
+[ext_resource type="PackedScene" uid="uid://bo6g684jcsmj" path="res://player.tscn" id="1_80nbo"]
+[ext_resource type="Script" uid="uid://bcoxr1avlnpro" path="res://game.gd" id="1_fc0e3"]
+[ext_resource type="Script" uid="uid://dbr4ek2yovmtw" path="res://parallax_scroller.gd" id="2_feb5d"]
+[ext_resource type="Texture2D" uid="uid://btd3d30yhjjlx" path="res://corridor.jpg" id="3_feb5d"]
+
 [node name="Game" type="Node2D" unique_id=1039177756]
+script = ExtResource("1_fc0e3")
 
 [node name="Label" type="Label" parent="." unique_id=1204420830]
 offset_left = 23.0
@@ -8,3 +14,22 @@ offset_top = -2.0
 offset_right = 212.0
 offset_bottom = 25.0
 text = "Level 1 / Game Scene"
+
+[node name="Player" parent="." unique_id=132685719 instance=ExtResource("1_80nbo")]
+position = Vector2(296, 836)
+
+[node name="Parallax2D" type="Parallax2D" parent="." unique_id=663687291]
+z_index = -1
+repeat_size = Vector2(0, 965.952)
+repeat_times = 3
+script = ExtResource("2_feb5d")
+
+[node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1020054412]
+position = Vector2(-28, -714)
+scale = Vector2(0.818, 0.702)
+texture = ExtResource("3_feb5d")
+centered = false
+
+[node name="EnemySpawner" type="Timer" parent="." unique_id=1422212913]
+wait_time = 1.2
+autostart = true

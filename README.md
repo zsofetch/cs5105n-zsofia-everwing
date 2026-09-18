@@ -106,6 +106,24 @@ cs5105n-zsofia-everwing/
 
 ---
 
+## Week 2: Gameplay Mechanics & Game Feel
+
+### Objectives & Overview
+- Map custom player input actions (`move_left`, `move_right`, and `shoot`) via Godot's Input Map.
+- Construct a player controller using `CharacterBody2D` utilizing kinematic physics movement (`move_and_slide()`).
+- Implement the core vertical shoot-'em-up mechanic with dynamic projectile instancing (`bullet.tscn`) and viewport horizontal boundary clamping.
+- Integrate aesthetic "game feel" / juice via procedural banking tilt on the sprite during directional changes.
+
+### Implementation Details
+
+- **Core Mechanic:** Responsive horizontal dodging along the X-axis coupled with rapid vertical projectile firing.
+- **Physics & Bounds:** Movement utilizes `CharacterBody2D.velocity` bounded within viewport dimensions via `clamp()`.
+- **Game Feel (Juice):** Implemented angular interpolation (`lerp_angle`) tied to the movement direction vector (`direction * tilt_angle`), producing responsive aerodynamic banking as the fairy moves across the screen.
+
+### Playable Build Evidence
+
+![Week 2 Core Mechanic & Juice](screenshots/week2-core-mechanic.png)
+
 ## Development Notes
 
 - **Engine:** This project uses **Godot 4.x** with GDScript for scripting
