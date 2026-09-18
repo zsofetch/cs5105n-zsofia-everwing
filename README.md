@@ -71,7 +71,7 @@ cs5105n-zsofia-everwing/
 ## Weekly Development Log
 
 - [Week 1: Engine Setup, Version Control, & Hello World Scene](#week-1-engine-setup-version-control--hello-world-scene)
-- [Week 2: Player Movement & Input Handling](#week-2-player-movement--input-handling)
+- [Week 2: Gameplay Mechanics & Game Feel](#week-2-gameplay-mechanics--game-feel)
 - [Week 3: Enemy Waves & Collision Detection](#week-3-enemy-waves--collision-detection)
 - [Week 4: Scoring & UI Systems](#week-4-scoring--ui-systems)
 - [Week 5: Audio & Visual Effects](#week-5-audio--visual-effects)
