@@ -1,5 +1,7 @@
 #dont mind this section
+
 lacking features:
+	
 	- choose character in the video game loading screen
 	- dapat mo game over if ma hit ang character sa one of the mobs
 	- video game loading screen
