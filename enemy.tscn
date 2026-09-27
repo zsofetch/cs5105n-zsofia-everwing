@@ -1,19 +1,23 @@
 [gd_scene format=3 uid="uid://bojsmpxm0fnof"]
 
 [ext_resource type="Script" uid="uid://ck8n3xfr7ojq4" path="res://enemy.gd" id="1_4gyqm"]
+[ext_resource type="Texture2D" uid="uid://scptljgqlkys" path="res://guard.png" id="2_epg4t"]
 [ext_resource type="Texture2D" uid="uid://cf0nejh61pqd3" path="res://icon.svg" id="2_qi2p4"]
+[ext_resource type="Texture2D" uid="uid://biujr0vup6veg" path="res://codey.png" id="3_3yqyl"]
+[ext_resource type="Texture2D" uid="uid://vy5j2fxt86aq" path="res://monitor.png" id="4_wujgv"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cc6ig"]
-radius = 74.88658
+radius = 56.0803
 
 [node name="Enemy" type="Area2D" unique_id=1206655304]
 script = ExtResource("1_4gyqm")
+textures = Array[Texture2D]([ExtResource("2_epg4t"), ExtResource("4_wujgv"), ExtResource("3_3yqyl")])
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=1320804259]
-position = Vector2(1.0000038, 2.0000076)
-scale = Vector2(0.6640625, 0.6640625)
+position = Vector2(-4.843749, 19.781248)
+scale = Vector2(0.6381836, 0.5971679)
 texture = ExtResource("2_qi2p4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=425917378]
-position = Vector2(2, 5)
+position = Vector2(-4, 19)
 shape = SubResource("CircleShape2D_cc6ig")

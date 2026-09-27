@@ -1,3 +1,13 @@
+#dont mind this section
+lacking features:
+	- choose character in the video game loading screen
+	- dapat mo game over if ma hit ang character sa one of the mobs
+	- video game loading screen
+	- final boss assets
+	- final bosses shoot stuff at the character (it tracks where the character is currently located and the player should dodge those bullets)
+	- sound effects and bgm
+	- powerups?
+	
 # Everwing (Godot 2D)
 
 **Course:** CS-5105N — Game Development  
@@ -54,7 +64,13 @@
 ```
 cs5105n-zsofia-everwing/
 ├── scenes/              # Godot scene files (.tscn)
-│   └── main.tscn       # Main gameplay scene
+│   ├── main.tscn        # Main gameplay scene
+│   ├── game.tscn        # Level/wave manager scene
+│   ├── player.tscn      # Player scene
+│   ├── bullet.tscn      # Player projectile scene
+│   ├── enemy.tscn       # Mob scene (multiple sprite variants)
+│   ├── boss.tscn        # Boss scene
+│   └── coin.tscn        # 1s/0s point pickup scene
 ├── scripts/             # GDScript source files
 ├── assets/              # Art, sprites, audio
 │   ├── sprites/
@@ -124,6 +140,58 @@ cs5105n-zsofia-everwing/
 
 ![Week 2 Core Mechanic & Juice](screenshots/week2-core-mechanic.png)
 
+---
+
+## Week 3: Enemy Waves & Collision Detection
+
+### Objectives & Overview
+
+- Replace random mob placement with a fixed 5-lane formation so enemies spawn in clean, Everwing-style rows.
+- Implement a wave-gating system so a new row only spawns once the previous row has cleared enough vertical space, instead of relying on a flat timer.
+- Give each mob (`enemy.gd`) its own HP pool, hit-flash feedback, and a custom-drawn health bar (`_draw()`), with damage delivered via `take_damage()` on `Area2D` collision with bullets.
+- Introduce a `boss.gd` enemy type: descends to a fixed stop position, holds there, and has a larger custom health bar.
+- Build out `game.gd` as the central level/wave manager: tracks elapsed time toward the boss encounter, spawns boss only once the current wave is fully cleared, and scales mob HP/speed and boss HP per level using a compounding growth curve on `current_level`.
+- Add visual variety by giving mobs a `textures` array so each spawned enemy randomly picks one of several sprite skins, auto-scaled to a consistent `target_size` regardless of the source asset's native resolution.
+
+### Implementation Details
+
+- **Lane System:** `_setup_lanes()` computes 5 evenly spaced X positions across the viewport width; every wave fills all 5 lanes.
+- **Wave Gating:** `_check_spawn_wave()` checks the minimum Y position among currently alive mobs and only releases the next wave once that value passes a screen-height threshold, preventing overlapping wave stacking.
+- **Boss Timing:** A `level_timer` accumulates while no boss is active/incoming; at `boss_spawn_delay` (currently 30s) the manager flags `boss_incoming` and waits for the active wave to clear before spawning `boss.tscn`.
+- **Difficulty Curve:** `_mob_hp_for_level()`, `_mob_speed_for_level()`, and `_boss_hp_for_level()` scale exponentially (`pow()`) off `current_level`, so each level cycle after a boss defeat is noticeably harder, not just incrementally so.
+- **Health Bars:** Both `enemy.gd` and `boss.gd` implement `_draw()` to render a background + fill bar above the sprite, color-shifting from green → yellow → red as HP drops, refreshed via `queue_redraw()` on spawn and on damage.
+- **Mob Variety:** `_apply_random_skin()` and `_fit_sprite_to_target_size()` pick a random texture from an exported array and normalize its scale, so mixed-resolution assets all render at a consistent in-game size.
+
+### Playable Build Evidence
+
+![Week 3 Enemy Waves & Boss](screenshots/week3-enemy-waves.png)
+
+---
+
+## Week 4: Scoring & UI Systems
+
+### Objectives & Overview
+
+- Add a point-collection system: mobs drop a coin (styled as binary `1`/`0` sprites) on death, worth 1 point when caught by the player.
+- Award a bonus of +5 points when an entire 5-mob row is fully defeated (not merely despawned off-screen).
+- Add a persistent, global score tracker accessible from any script, plus an on-screen counter.
+- Give coins a natural gravitational drop so catching them requires quick, active positioning rather than a passive straight-line intercept.
+
+### Implementation Details
+
+- **Global Score State:** `score.gd` registered as an Autoload singleton (`Score`), exposing `add_points()`, `reset()`, and a `score_changed` signal so any node can update or read the score without direct references.
+- **Coin Pickups:** `coin.gd` (`Area2D`) detects the player via `body_entered` (checked against the `"player"` group, added to `player.gd`'s `_ready()`), awards `Score.add_points(value)`, and `queue_free()`s itself on pickup for the "obtained" feel.
+- **Coin Physics:** Coins fall under true gravitational acceleration (`fall_velocity` increasing by `gravity * delta` each frame, capped at `max_fall_speed`) instead of a constant fall speed, so they start slow and speed up — requiring the player to react quickly to catch them before they escape.
+- **Mob Coin Drops:** `enemy.gd` distinguishes a real kill (took lethal damage → `died.emit()` + `_drop_coin()`) from an off-screen escape (mob leaves the viewport with no signal, no coin), so only genuine kills reward the player.
+- **Row-Clear Bonus:** `game.gd` tracks each spawned wave's mob list and listens for each mob's `died` signal; once every mob in that wave has been confirmed killed, `Score.add_points(5)` fires automatically.
+- **Score UI:** A `CanvasLayer` + `Label` (`score_label.gd`) anchored top-right, subscribed to `Score.score_changed`, displaying `"Score: <n>"` live as points are earned.
+
+### Playable Build Evidence
+
+![Week 4 Scoring & UI](screenshots/week4-scoring-ui.png)
+
+---
+
 ## Development Notes
 
 - **Engine:** This project uses **Godot 4.x** with GDScript for scripting
@@ -135,7 +203,10 @@ cs5105n-zsofia-everwing/
 ## Known Issues & Roadmap
 
 - [x] Week 1: Engine setup and hello world
-- [ ] Week 2–7: Gameplay features in progress
+- [x] Week 2: Player movement, shooting, and game feel
+- [x] Week 3: Enemy waves, lanes, collision detection, boss, difficulty scaling
+- [x] Week 4: Coin drops, scoring, row-clear bonus, score UI
+- [ ] Week 5–7: Audio, visual effects, polish, mobile support in progress
 - [ ] Week 8: Final polish and submission
 
 ---
@@ -155,5 +226,5 @@ This project is developed as part of CS-5105N coursework.
 
 ---
 
-**Last Updated:** Week 1 (Initial Setup)  
+**Last Updated:** Week 4 (Scoring & UI Systems)  
 **Developer:** Zsofia Everwing

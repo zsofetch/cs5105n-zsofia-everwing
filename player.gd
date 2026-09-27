@@ -15,6 +15,7 @@ var is_dragging: bool = false
 
 func _ready() -> void:
 	target_x = position.x
+	add_to_group("player")
 
 func _input(event: InputEvent) -> void:
 	if event is InputEventMouseButton:

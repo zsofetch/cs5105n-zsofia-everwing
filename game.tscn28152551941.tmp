@@ -8,6 +8,8 @@
 
 [node name="Game" type="Node2D" unique_id=1039177756]
 script = ExtResource("1_fc0e3")
+current_level = null
+boss_spawn_delay = null
 
 [node name="Player" parent="." unique_id=132685719 instance=ExtResource("1_80nbo")]
 position = Vector2(296, 836)
@@ -32,13 +34,12 @@ autostart = true
 
 [node name="Label" type="Label" parent="CanvasLayer" unique_id=778094518]
 anchors_preset = -1
-anchor_left = 0.68700004
-anchor_top = 0.022000002
-anchor_right = 0.933
+anchor_left = 0.808
+anchor_right = 1.057
 anchor_bottom = 0.147
-offset_left = 0.019989014
-offset_top = -0.12000084
-offset_right = 0.17999268
+offset_left = 1.6799927
+offset_top = 21.0
+offset_right = 0.2199707
 offset_bottom = 5.880005
 theme_override_font_sizes/font_size = 16
 horizontal_alignment = 2
