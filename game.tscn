@@ -40,6 +40,6 @@ offset_left = 0.019989014
 offset_top = -0.12000084
 offset_right = 0.17999268
 offset_bottom = 5.880005
-theme_override_font_sizes/font_size = 16
+theme_override_font_sizes/font_size = 30
 horizontal_alignment = 2
 script = ExtResource("5_7jktm")

@@ -87,7 +87,7 @@ cs5105n-zsofia-everwing/
 ## Weekly Development Log
 
 - [Week 1: Engine Setup, Version Control, & Hello World Scene](#week-1-engine-setup-version-control--hello-world-scene)
-- [Week 2: Player Movement & Input Handling](#week-2-player-movement--input-handling)
+- [Week 2: Gameplay Mechanics & Game Feel](#week-2-gameplay-mechanics--game-feel)
 - [Week 3: Enemy Waves & Collision Detection](#week-3-enemy-waves--collision-detection)
 - [Week 4: Scoring & UI Systems](#week-4-scoring--ui-systems)
 - [Week 5: Audio & Visual Effects](#week-5-audio--visual-effects)
@@ -211,20 +211,15 @@ cs5105n-zsofia-everwing/
 
 ---
 
-## Contributing
-
-This is a course project. Contributions and feedback are welcome. Please ensure:
-1. All binary assets use Git LFS
-2. Code follows Godot/GDScript conventions
-3. Scenes are properly organized in the `scenes/` directory
-
----
-
 ## License
 
 This project is developed as part of CS-5105N coursework.
 
 ---
 
+<<<<<<< HEAD
 **Last Updated:** Week 4 (Scoring & UI Systems)  
+=======
+**Last Updated:** Week 2 (Gameplay Mechanics)  
+>>>>>>> 26d9148941d14fbdfe1534faba27aa434ceeadd0
 **Developer:** Zsofia Everwing
