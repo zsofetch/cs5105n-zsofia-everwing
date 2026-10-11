@@ -8,6 +8,7 @@ signal boss_defeated
 
 var hp: int
 var has_stopped: bool = false
+var is_dying: bool = false
 
 const BAR_WIDTH: float = 140.0
 const BAR_HEIGHT: float = 10.0
@@ -26,15 +27,22 @@ func _physics_process(delta: float) -> void:
 			has_stopped = true
 
 func take_damage(amount: int = 1) -> void:
+	if is_dying:
+		return
 	hp -= amount
 	modulate = Color(1.0, 0.4, 0.4)
 	queue_redraw()
+	if hp <= 0:
+		is_dying = true
+		AudioManager.play_sfx("explosion")
+		await get_tree().create_timer(0.06).timeout
+		boss_defeated.emit()
+		queue_free()
+		return
+	AudioManager.play_sfx("hit", -4.0, 0.1)
 	await get_tree().create_timer(0.06).timeout
 	if is_instance_valid(self):
 		modulate = Color(1.0, 1.0, 1.0)
-	if hp <= 0:
-		boss_defeated.emit()
-		queue_free()
 
 func _draw() -> void:
 	var pct: float = float(hp) / float(max_hp)

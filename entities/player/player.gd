@@ -20,6 +20,7 @@ var is_dead: bool = false
 func _ready() -> void:
 	target_x = position.x
 	add_to_group("player")
+	sprite.texture = GameState.get_character_texture()
 
 func _input(event: InputEvent) -> void:
 	if is_dead:
@@ -64,12 +65,14 @@ func fire_bullet() -> void:
 	var bullet = BULLET_SCENE.instantiate()
 	bullet.global_position = muzzle.global_position
 	get_tree().current_scene.add_child(bullet)
+	AudioManager.play_sfx("shoot", -8.0, 0.08)   # NEW (quiet and slightly varied: it plays constantly)
 
-# Called by mobs and the boss when they touch the player
 func die() -> void:
 	if is_dead:
 		return
 	is_dead = true
+	AudioManager.play_sfx("player_death")        # NEW
+	AudioManager.stop_music()                    # NEW
 	died.emit()
 	set_physics_process(false)
 	hide()

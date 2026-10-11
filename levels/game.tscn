@@ -4,7 +4,6 @@
 [ext_resource type="PackedScene" uid="uid://bo6g684jcsmj" path="res://entities/player/player.tscn" id="2_cnc74"]
 [ext_resource type="Script" uid="uid://dbr4ek2yovmtw" path="res://levels/parallax_scroller.gd" id="3_30w35"]
 [ext_resource type="Texture2D" uid="uid://btd3d30yhjjlx" path="res://assets/art/corridor.jpg" id="4_arvxu"]
-[ext_resource type="Script" uid="uid://be0ibu67tripq" path="res://ui/hud/score_label.gd" id="5_30w35"]
 
 [node name="Game" type="Node2D" unique_id=1039177756]
 script = ExtResource("1_30w35")
@@ -27,19 +26,3 @@ centered = false
 [node name="EnemySpawner" type="Timer" parent="." unique_id=1422212913]
 wait_time = 1.2
 autostart = true
-
-[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=2128799031]
-
-[node name="Label" type="Label" parent="CanvasLayer" unique_id=778094518]
-anchors_preset = -1
-anchor_left = 0.68700004
-anchor_top = 0.022000002
-anchor_right = 0.933
-anchor_bottom = 0.147
-offset_left = 0.019989014
-offset_top = -0.12000084
-offset_right = 0.17999268
-offset_bottom = 5.880005
-theme_override_font_sizes/font_size = 30
-horizontal_alignment = 2
-script = ExtResource("5_30w35")

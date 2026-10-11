@@ -50,19 +50,21 @@ func _on_body_entered(body: Node) -> void:
 
 func take_damage(amount: int = 1) -> void:
 	if is_dying:
-		return                      # ignore extra bullets on the same frame
+		return
 	hp -= amount
 	queue_redraw()
 	if hp <= 0:
 		is_dying = true
-		_die.call_deferred()        # deferred: we're inside a physics callback
+		_die.call_deferred()
 		return
+	AudioManager.play_sfx("hit", -4.0, 0.1)      # NEW
 	modulate = Color(1.0, 0.3, 0.3)
 	await get_tree().create_timer(0.06).timeout
 	if is_instance_valid(self):
 		modulate = Color(1.0, 1.0, 1.0)
 
 func _die() -> void:
+	AudioManager.play_sfx("explosion", -2.0, 0.1)   # NEW
 	_drop_coin()
 	_spawn_explosion()
 	died.emit()
@@ -84,9 +86,4 @@ func _draw() -> void:
 	draw_rect(bg, Color(0.1, 0.1, 0.1, 0.85))
 	var fill_w: float = BAR_WIDTH * clamp(pct, 0.0, 1.0)
 	var fg := Rect2(Vector2(-BAR_WIDTH / 2.0, BAR_OFFSET_Y), Vector2(fill_w, BAR_HEIGHT))
-	var bar_color: Color = Color(0.2, 0.9, 0.2)
-	if pct <= 0.3:
-		bar_color = Color(0.9, 0.2, 0.2)
-	elif pct <= 0.6:
-		bar_color = Color(0.9, 0.9, 0.2)
-	draw_rect(fg, bar_color)
+	draw_rect(fg, GameState.hp_color(pct))

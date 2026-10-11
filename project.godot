@@ -11,13 +11,19 @@ config_version=5
 [application]
 
 config/name="Everwing"
-run/main_scene="uid://dulol8qjmx00b"
+run/main_scene="uid://banhlm667m05y"
 config/features=PackedStringArray("4.7", "Mobile")
 config/icon="res://icon.svg"
+
+[audio]
+
+buses/default_bus_layout="uid://ss3v0b6i2gme"
 
 [autoload]
 
 Score="*uid://dyeg5g28s2pf7"
+GameState="*uid://n1budois46a1"
+AudioManager="*uid://cvucl28qwuwl0"
 
 [display]
 
