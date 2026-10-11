@@ -21,8 +21,14 @@ const BAR_OFFSET_Y: float = -40.0
 func _ready() -> void:
 	hp = max_hp
 	add_to_group("mobs")
+	body_entered.connect(_on_body_entered)   # NEW
 	_apply_random_skin()
 	queue_redraw()
+
+# NEW: touching a mob kills the player
+func _on_body_entered(body: Node) -> void:
+	if body.is_in_group("player") and body.has_method("die"):
+		body.die()
 
 func _apply_random_skin() -> void:
 	if textures.size() > 0:

@@ -1,10 +1,11 @@
 extends CharacterBody2D
 
+signal died
+
 @export var speed: float = 650.0
 @export var fire_rate: float = 0.12
 @export var tilt_angle: float = 0.3
 
-#change file loc for this
 const BULLET_SCENE = preload("res://entities/bullets/bullet.tscn")
 
 @onready var sprite: Sprite2D = $Sprite2D
@@ -13,12 +14,15 @@ const BULLET_SCENE = preload("res://entities/bullets/bullet.tscn")
 var shoot_timer: float = 0.0
 var target_x: float = 0.0
 var is_dragging: bool = false
+var is_dead: bool = false
 
 func _ready() -> void:
 	target_x = position.x
 	add_to_group("player")
 
 func _input(event: InputEvent) -> void:
+	if is_dead:
+		return
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_LEFT:
 			is_dragging = event.pressed
@@ -54,3 +58,12 @@ func fire_bullet() -> void:
 	var bullet = BULLET_SCENE.instantiate()
 	bullet.global_position = muzzle.global_position
 	get_tree().current_scene.add_child(bullet)
+
+# Called by mobs and the boss when they touch the player
+func die() -> void:
+	if is_dead:
+		return            # ignore repeat hits
+	is_dead = true
+	died.emit()
+	set_physics_process(false)   # stops movement and auto-fire
+	hide()

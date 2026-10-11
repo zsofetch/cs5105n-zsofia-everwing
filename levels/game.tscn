@@ -4,7 +4,7 @@
 [ext_resource type="PackedScene" uid="uid://bo6g684jcsmj" path="res://entities/player/player.tscn" id="2_cnc74"]
 [ext_resource type="Script" uid="uid://dbr4ek2yovmtw" path="res://levels/parallax_scroller.gd" id="3_30w35"]
 [ext_resource type="Texture2D" uid="uid://btd3d30yhjjlx" path="res://assets/art/corridor.jpg" id="4_arvxu"]
-[ext_resource type="Script" uid="uid://be0ibu67tripq" path="res://ui/hud/score_label.gd" id="5_kc1m6"]
+[ext_resource type="Script" uid="uid://be0ibu67tripq" path="res://ui/hud/score_label.gd" id="5_30w35"]
 
 [node name="Game" type="Node2D" unique_id=1039177756]
 script = ExtResource("1_30w35")
@@ -42,4 +42,4 @@ offset_right = 0.17999268
 offset_bottom = 5.880005
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 2
-script = ExtResource("5_kc1m6")
+script = ExtResource("5_30w35")
