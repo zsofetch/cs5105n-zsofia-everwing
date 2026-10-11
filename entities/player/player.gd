@@ -4,7 +4,8 @@ extends CharacterBody2D
 @export var fire_rate: float = 0.12
 @export var tilt_angle: float = 0.3
 
-const BULLET_SCENE = preload("res://bullet.tscn")
+#change file loc for this
+const BULLET_SCENE = preload("res://entities/bullets/bullet.tscn")
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var muzzle: Marker2D = $Muzzle

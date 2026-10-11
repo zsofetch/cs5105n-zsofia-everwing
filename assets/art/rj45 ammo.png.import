@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://jx4xmf35flw7"
-path="res://.godot/imported/girl character.png-64c5728c84004736aaae57eb1c87051c.ctex"
+uid="uid://bfftgqjcabxlh"
+path="res://.godot/imported/rj45 ammo.png-3153bc58becdcbd26964cfcf243e02e3.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://girl character.png"
-dest_files=["res://.godot/imported/girl character.png-64c5728c84004736aaae57eb1c87051c.ctex"]
+source_file="res://assets/art/rj45 ammo.png"
+dest_files=["res://.godot/imported/rj45 ammo.png-3153bc58becdcbd26964cfcf243e02e3.ctex"]
 
 [params]
 

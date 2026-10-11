@@ -1,7 +1,8 @@
 extends Node2D
 
-const ENEMY_SCENE = preload("res://enemy.tscn")
-const BOSS_SCENE = preload("res://boss.tscn")
+#change the file loc of this 
+const ENEMY_SCENE = preload("res://entities/enemies/enemy.tscn")
+const BOSS_SCENE = preload("res://entities/boss/boss.tscn")
 
 const LANE_COUNT: int = 5
 
@@ -40,6 +41,7 @@ func _setup_lanes() -> void:
 		var t: float = float(i) / float(LANE_COUNT - 1) if LANE_COUNT > 1 else 0.5
 		lane_positions.append(margin + usable_width * t)
 
+#this is for the incremental sa levels' speed
 func _mob_hp_for_level() -> int:
 	return int(2 * pow(1.15, current_level - 1))
 

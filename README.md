@@ -7,6 +7,8 @@ lacking features:
 	- final bosses shoot stuff at the character (it tracks where the character is currently located and the player should dodge those bullets)
 	- sound effects and bgm
 	- powerups?
+	- organize file structure
+	- level 1 is too fast we need to fix that 
 	
 # Everwing (Godot 2D)
 

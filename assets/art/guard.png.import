@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bqwh81yrsap4m"
-path="res://.godot/imported/boy character.png-a9eeab907567fd3bef5ca80dee6133fd.ctex"
+uid="uid://scptljgqlkys"
+path="res://.godot/imported/guard.png-a169750b63bc428025d7a307a0359b0e.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://boy character.png"
-dest_files=["res://.godot/imported/boy character.png-a9eeab907567fd3bef5ca80dee6133fd.ctex"]
+source_file="res://assets/art/guard.png"
+dest_files=["res://.godot/imported/guard.png-a169750b63bc428025d7a307a0359b0e.ctex"]
 
 [params]
 

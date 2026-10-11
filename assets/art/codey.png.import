@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bfftgqjcabxlh"
-path="res://.godot/imported/rj45 ammo.png-49e7d53e4246ee41b4579db9e6143e99.ctex"
+uid="uid://biujr0vup6veg"
+path="res://.godot/imported/codey.png-bfcb13c3d78755a424b44dbd4c59d0a6.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://rj45 ammo.png"
-dest_files=["res://.godot/imported/rj45 ammo.png-49e7d53e4246ee41b4579db9e6143e99.ctex"]
+source_file="res://assets/art/codey.png"
+dest_files=["res://.godot/imported/codey.png-bfcb13c3d78755a424b44dbd4c59d0a6.ctex"]
 
 [params]
 

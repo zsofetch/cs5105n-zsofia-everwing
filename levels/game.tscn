@@ -1,27 +1,27 @@
 [gd_scene format=3 uid="uid://dulol8qjmx00b"]
 
-[ext_resource type="PackedScene" uid="uid://bo6g684jcsmj" path="res://player.tscn" id="1_80nbo"]
-[ext_resource type="Script" uid="uid://bcoxr1avlnpro" path="res://game.gd" id="1_fc0e3"]
-[ext_resource type="Script" uid="uid://dbr4ek2yovmtw" path="res://parallax_scroller.gd" id="2_feb5d"]
-[ext_resource type="Texture2D" uid="uid://btd3d30yhjjlx" path="res://corridor.jpg" id="3_feb5d"]
-[ext_resource type="Script" uid="uid://be0ibu67tripq" path="res://score_label.gd" id="5_7jktm"]
+[ext_resource type="Script" uid="uid://bcoxr1avlnpro" path="res://levels/game.gd" id="1_30w35"]
+[ext_resource type="PackedScene" uid="uid://bo6g684jcsmj" path="res://entities/player/player.tscn" id="2_cnc74"]
+[ext_resource type="Script" uid="uid://dbr4ek2yovmtw" path="res://levels/parallax_scroller.gd" id="3_30w35"]
+[ext_resource type="Texture2D" uid="uid://btd3d30yhjjlx" path="res://assets/art/corridor.jpg" id="4_arvxu"]
+[ext_resource type="Script" uid="uid://be0ibu67tripq" path="res://ui/hud/score_label.gd" id="5_kc1m6"]
 
 [node name="Game" type="Node2D" unique_id=1039177756]
-script = ExtResource("1_fc0e3")
+script = ExtResource("1_30w35")
 
-[node name="Player" parent="." unique_id=132685719 instance=ExtResource("1_80nbo")]
+[node name="Player" parent="." unique_id=132685719 instance=ExtResource("2_cnc74")]
 position = Vector2(296, 836)
 
 [node name="Parallax2D" type="Parallax2D" parent="." unique_id=663687291]
 z_index = -1
 repeat_size = Vector2(0, 965.952)
 repeat_times = 3
-script = ExtResource("2_feb5d")
+script = ExtResource("3_30w35")
 
 [node name="Sprite2D" type="Sprite2D" parent="Parallax2D" unique_id=1020054412]
 position = Vector2(-28, -714)
 scale = Vector2(0.818, 0.702)
-texture = ExtResource("3_feb5d")
+texture = ExtResource("4_arvxu")
 centered = false
 
 [node name="EnemySpawner" type="Timer" parent="." unique_id=1422212913]
@@ -42,4 +42,4 @@ offset_right = 0.17999268
 offset_bottom = 5.880005
 theme_override_font_sizes/font_size = 30
 horizontal_alignment = 2
-script = ExtResource("5_7jktm")
+script = ExtResource("5_kc1m6")

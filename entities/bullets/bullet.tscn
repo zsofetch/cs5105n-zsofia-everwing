@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cgug8rwsgq5n2"]
 
-[ext_resource type="Script" uid="uid://fw7566pum76p" path="res://bullet.gd" id="1_v8qja"]
-[ext_resource type="Texture2D" uid="uid://bfftgqjcabxlh" path="res://rj45 ammo.png" id="2_v8qja"]
+[ext_resource type="Script" uid="uid://fw7566pum76p" path="res://entities/bullets/bullet.gd" id="1_v8qja"]
+[ext_resource type="Texture2D" uid="uid://bfftgqjcabxlh" path="res://assets/art/rj45 ammo.png" id="2_v8qja"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_cc6ig"]
 size = Vector2(10, 10)

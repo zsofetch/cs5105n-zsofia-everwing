@@ -2,7 +2,8 @@ extends Area2D
 
 signal died
 
-const COIN_SCENE = preload("res://coin.tscn")
+#change the file loc for this 
+const COIN_SCENE = preload("res://entities/pickups/coin.tscn")
 
 @export var speed: float = 140.0
 @export var max_hp: int = 2
