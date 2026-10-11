@@ -1,19 +1,20 @@
 [gd_scene format=3 uid="uid://vtj40vbgwcy2"]
 
 [ext_resource type="Script" uid="uid://cv560lshdthnm" path="res://entities/boss/boss.gd" id="1_wijo7"]
-[ext_resource type="Texture2D" uid="uid://cf0nejh61pqd3" path="res://icon.svg" id="2_820jm"]
+[ext_resource type="Texture2D" uid="uid://cn4qipiy6qudw" path="res://assets/art/boss.png" id="2_820jm"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_cc6ig"]
-radius = 227.4313
+radius = 172.00291
 
 [node name="Boss" type="Area2D" unique_id=598794609]
+position = Vector2(-1, 49)
 script = ExtResource("1_wijo7")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1980960049]
-position = Vector2(28.000015, 13)
-scale = Vector2(2.5273438, 2.234375)
-texture = ExtResource("2_820jm")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1561188870]
-position = Vector2(11, 15)
+position = Vector2(-8, 116)
 shape = SubResource("CircleShape2D_cc6ig")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=841636832]
+position = Vector2(-1, 107.999985)
+scale = Vector2(0.1656797, 0.1520078)
+texture = ExtResource("2_820jm")

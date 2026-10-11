@@ -10,6 +10,7 @@ const BULLET_SCENE = preload("res://entities/bullets/bullet.tscn")
 
 @onready var sprite: Sprite2D = $Sprite2D
 @onready var muzzle: Marker2D = $Muzzle
+@onready var anim: AnimationPlayer = $AnimationPlayer
 
 var shoot_timer: float = 0.0
 var target_x: float = 0.0
@@ -48,7 +49,12 @@ func _physics_process(delta: float) -> void:
 	var normalized_vel: float = clamp(velocity.x / speed, -1.0, 1.0)
 	sprite.rotation = lerp_angle(sprite.rotation, normalized_vel * tilt_angle, 14.0 * delta)
 
-	# 3. Continuous Auto-fire
+	# 3. Pick the animation from the player's state
+	var wanted: String = "move" if absf(velocity.x) > 100.0 else "idle"
+	if anim.current_animation != wanted:
+		anim.play(wanted)
+
+	# 4. Continuous Auto-fire
 	shoot_timer -= delta
 	if shoot_timer <= 0.0:
 		fire_bullet()
@@ -62,8 +68,8 @@ func fire_bullet() -> void:
 # Called by mobs and the boss when they touch the player
 func die() -> void:
 	if is_dead:
-		return            # ignore repeat hits
+		return
 	is_dead = true
 	died.emit()
-	set_physics_process(false)   # stops movement and auto-fire
+	set_physics_process(false)
 	hide()

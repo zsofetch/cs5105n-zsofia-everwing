@@ -6,6 +6,74 @@
 [sub_resource type="CircleShape2D" id="CircleShape2D_cc6ig"]
 radius = 80.0
 
+[sub_resource type="Animation" id="Animation_abrql"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(3.499999, -16.50001)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Sprite2D:scale")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0.061499998, 0.06150001)]
+}
+
+[sub_resource type="Animation" id="Animation_sglur"]
+resource_name = "idle"
+length = 1.2
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.6, 1.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(3.5, 0), Vector2(3.5, -6), Vector2(3.5, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_bls4j"]
+resource_name = "move"
+length = 0.3
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:scale")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0.056, 0.067), Vector2(0.056, 0.067)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_fkugw"]
+_data = {
+&"RESET": SubResource("Animation_abrql"),
+&"idle": SubResource("Animation_sglur"),
+&"move": SubResource("Animation_bls4j")
+}
+
 [node name="Player" type="CharacterBody2D" unique_id=132685719]
 script = ExtResource("1_onrkg")
 
@@ -20,3 +88,7 @@ shape = SubResource("CircleShape2D_cc6ig")
 
 [node name="Muzzle" type="Marker2D" parent="." unique_id=583503448]
 position = Vector2(-1, -69)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=364789201]
+libraries/ = SubResource("AnimationLibrary_fkugw")
+autoplay = &"idle"

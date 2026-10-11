@@ -2,8 +2,8 @@ extends Area2D
 
 signal died
 
-#change the file loc for this 
 const COIN_SCENE = preload("res://entities/pickups/coin.tscn")
+const EXPLOSION_SCENE = preload("res://entities/effects/explosion.tscn")
 
 @export var speed: float = 140.0
 @export var max_hp: int = 2
@@ -11,6 +11,7 @@ const COIN_SCENE = preload("res://entities/pickups/coin.tscn")
 @export var target_size: Vector2 = Vector2(64.0, 64.0)
 
 var hp: int
+var is_dying: bool = false
 
 @onready var sprite: Sprite2D = $Sprite2D
 
@@ -21,14 +22,9 @@ const BAR_OFFSET_Y: float = -40.0
 func _ready() -> void:
 	hp = max_hp
 	add_to_group("mobs")
-	body_entered.connect(_on_body_entered)   # NEW
+	body_entered.connect(_on_body_entered)
 	_apply_random_skin()
 	queue_redraw()
-
-# NEW: touching a mob kills the player
-func _on_body_entered(body: Node) -> void:
-	if body.is_in_group("player") and body.has_method("die"):
-		body.die()
 
 func _apply_random_skin() -> void:
 	if textures.size() > 0:
@@ -46,24 +42,41 @@ func _fit_sprite_to_target_size(tex: Texture2D) -> void:
 func _physics_process(delta: float) -> void:
 	position.y += speed * delta
 	if position.y > get_viewport_rect().size.y + 60.0:
-		queue_free()  # escaped off-screen — no coin, no "died" signal
+		queue_free()  # escaped off-screen: no coin, no "died" signal
+
+func _on_body_entered(body: Node) -> void:
+	if body.is_in_group("player") and body.has_method("die"):
+		body.die()
 
 func take_damage(amount: int = 1) -> void:
+	if is_dying:
+		return                      # ignore extra bullets on the same frame
 	hp -= amount
-	modulate = Color(1.0, 0.3, 0.3)
 	queue_redraw()
+	if hp <= 0:
+		is_dying = true
+		_die.call_deferred()        # deferred: we're inside a physics callback
+		return
+	modulate = Color(1.0, 0.3, 0.3)
 	await get_tree().create_timer(0.06).timeout
 	if is_instance_valid(self):
 		modulate = Color(1.0, 1.0, 1.0)
-	if hp <= 0:
-		_drop_coin()
-		died.emit()
-		queue_free()
+
+func _die() -> void:
+	_drop_coin()
+	_spawn_explosion()
+	died.emit()
+	queue_free()
 
 func _drop_coin() -> void:
 	var coin = COIN_SCENE.instantiate()
 	coin.global_position = global_position
 	get_tree().current_scene.add_child(coin)
+
+func _spawn_explosion() -> void:
+	var fx = EXPLOSION_SCENE.instantiate()
+	fx.global_position = global_position
+	get_tree().current_scene.add_child(fx)
 
 func _draw() -> void:
 	var pct: float = float(hp) / float(max_hp)

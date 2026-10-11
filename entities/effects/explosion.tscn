@@ -1,0 +1,6 @@
+[gd_scene format=3 uid="uid://bto0xc0ppwf27"]
+
+[ext_resource type="Script" uid="uid://bx51twulutjs4" path="res://entities/effects/explosion.gd" id="1_q7epf"]
+
+[node name="CPUParticles2D" type="CPUParticles2D" unique_id=117982677]
+script = ExtResource("1_q7epf")

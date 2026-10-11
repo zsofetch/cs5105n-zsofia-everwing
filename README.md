@@ -1,4 +1,4 @@
-#dont mind this section
+dont mind this section
 
 lacking features:
 	
@@ -170,6 +170,7 @@ cs5105n-zsofia-everwing/
 
 ![Week 3 Enemy Waves & Boss](screenshots/week3-enemy-waves.png)
 
+
 ---
 
 ## Week 4: Scoring & UI Systems
@@ -193,6 +194,7 @@ cs5105n-zsofia-everwing/
 ### Playable Build Evidence
 
 ![Week 4 Scoring & UI](screenshots/week4-scoring-ui.png)
+![Week 4 Boss](screenshots/week4-boss.png)
 
 ---
 
@@ -221,9 +223,7 @@ This project is developed as part of CS-5105N coursework.
 
 ---
 
-<<<<<<< HEAD
 **Last Updated:** Week 4 (Scoring & UI Systems)  
 =======
 **Last Updated:** Week 2 (Gameplay Mechanics)  
->>>>>>> 26d9148941d14fbdfe1534faba27aa434ceeadd0
 **Developer:** Zsofia Everwing
