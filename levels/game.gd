@@ -14,10 +14,10 @@ const LEVELS = [
 		"name": "LEVEL 1",
 		"mob_speed": 90.0,
 		"mob_hp": 2,
-		"mobs_per_wave": 2,
+		"mobs_per_wave": 3,
 		"wave_gap": 0.4,
 		"boss_delay": 30.0,
-		"boss_hp": 30,
+		"boss_hp": 60,
 	},
 	{
 		"name": "LEVEL 2",
