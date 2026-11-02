@@ -1,23 +1,3 @@
-dont mind this section thank you
-
-lacking features/checklist:
-- [x] choose character in the video game loading screen
-- [ ] improve the overall UI (personalized home screen and cuter fonts)
-- [x] dapat mo game over if ma hit ang character sa one of the mobs
-- [x] video game loading screen
-- [ ] final boss assets (change to something more dcism themed)
-- [x] final bosses shoot stuff at the character (it tracks where the character is currently located and the player should dodge those bullets)
-- [ ] sound effects and bgm (FIND A BETTER SFX FOR SHOOTING SABA KAAU ANG CURRENT) -- placeholders are wired in via AudioManager, just swap in the final files
-- [ ] powerups for more fun
-- [x] organize file structure
-- [x] level 1 is too fast we need to fix that 
-- [ ] i feel like need ichange ang pacing 
-- [ ] transition to a more dcism themed game (including name)
-- [ ] change the background for the game (should have different backgrounds every level)
-- [ ] animate the characters to be more mobile ?? (ex. monsters gently float/bounce)
-- [ ] add a final boss incoming warning before the boss shows up
-- [ ] reposition boss' bullets
-
 # Everwing (Godot 2D)
  
 **Course:** CS-5105N — Game Development  
@@ -474,9 +454,7 @@ The boss descends to its stop position and starts swaying side to side. After a 
 - [x] Week 5: HUD, main menu with character select, game over screen, audio buses, colorblind-safe palette
 - [ ] Week 5 (remaining): final sound effects and music (placeholders for now) and the playtest write-up
 - [x] Week 6: AI enemy (boss state machine that fires aimed, dodgeable bullets)
-- [ ] Week 6 (remaining): fill in the "what I changed" and "bugs found" notes, add a screenshot; optional stretch: second enemy type
 - [x] Week 7: Juice (shake, hit-stop, coin tween), save/load with Continue
-- [ ] Week 7 (remaining): profiler results + optimization, second playtest write-up, fill in the "what I changed" and "bugs found" notes
 - [ ] Powerups (still planned; not part of the Week 7 sheet)
 - [x] Week 8: Exported to Windows Desktop and Web, with a web-specific tweak (hidden QUIT button)
 - [ ] Week 8 (remaining): testing table, showcase feedback, and the team-Git practice (branch, pull request, merge conflict) on a practice repo
