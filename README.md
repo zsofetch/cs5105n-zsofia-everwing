@@ -391,9 +391,8 @@ The boss descends to its stop position and starts swaying side to side. After a 
 - The coin pickup tween.
  
 ### Playable Build Evidence
-
-<!-- ![Week 7 Continue Button](screenshots/week7-continue.png) -->
-<!-- ![Week 7 Save File](screenshots/week7-save-file.png) -->
+![Week 7 Continue Button](screenshots/week7-continue.png)
+![Week 7 Save File](screenshots/week7-save-file.png)
  
 ---
  
