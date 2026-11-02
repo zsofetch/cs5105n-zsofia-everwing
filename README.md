@@ -395,6 +395,60 @@ The boss descends to its stop position and starts swaying side to side. After a 
 ![Week 7 Save File](screenshots/week7-save-file.png)
  
 ---
+ ## Week 8: Multi-Platform Export & Team Git
+ 
+### Objectives & Overview
+ 
+- Install Godot's export templates and export the game to **two platforms**: Windows Desktop and Web.
+- Make a **platform-specific tweak** so the game fits each target.
+- Test that each export actually runs, and commit the builds with a short note.
+- Showcase the finished mini-game to the class.
+### Platforms Exported
+ 
+| | Platform 1: Windows Desktop | Platform 2: Web |
+|---|---|---|
+| Export preset | Windows Desktop, x86_64 | Web |
+| Output | `builds/windows/everwing.exe` | `builds/web/index.html` (+ `.wasm`, `.pck`, `.js`) |
+| Key options | **Embed PCK** on (single `.exe`), console wrapper off, debug export off | Default Web options |
+| Committed as | `builds/everwing-windows.zip` | `builds/everwing-web.zip` |
+ 
+### Platform-Specific Tweaks
+ 
+- **Hide QUIT on web:** a browser tab can't be closed by the game, so `get_tree().quit()` does nothing there. In `main_menu.gd` the QUIT button is only created when `not OS.has_feature("web")`, so the Web build shows START / CONTINUE only.
+- **Scaling:** the window stretch settings (Project Settings → Display → Window → Stretch) are set to mode `canvas_items` with aspect `keep`, so the vertical layout scales to any browser window or screen size without stretching.
+- **Touch:** movement already uses mouse-style drag events, and Godot converts touch input to mouse events by default, so touch controls work in a phone browser without extra code.
+### How the Builds Are Stored
+ 
+- Exports go to `builds/` instead of `export/`, because `export/` is in `.gitignore` from Week 1.
+- Each build is zipped and the zips are tracked with **Git LFS** (`git lfs track "builds/*.zip"`), since the web build's `.wasm` file alone is tens of MB. The unzipped `builds/windows/` and `builds/web/` folders are listed in `.gitignore` so only the zips are committed.
+### Testing
+ 
+| Check | Windows | Web |
+|---|---|---|
+| Menu loads, START works | [x] | [x] |
+| Movement + auto-fire | [x] | [x] |
+| Boss fight, game over, Retry | [x] | [x] |
+| Continue / save file works | [x] | [x] |
+| Audio plays | [x] | [x] |
+| QUIT hidden (web only) | n/a | [x] |
+ 
+### Export Gotchas Hit
+ 
+- **Web builds need an HTTP server.** Opening `index.html` directly from disk does not work; the build has to be served (Godot's *Remote Debug → Run in Browser* or a local Python server).
+- **Local server port blocked on Windows.** `python -m http.server 8000` failed with `PermissionError: [WinError 10013]` because Windows blocked port 8000; a different port (or Godot's own Run in Browser) is needed. *(TODO: note which fix you used.)*
+- **Browsers block autoplay audio.** On web the menu music stays silent until the first click or key press.
+ 
+**What I changed or wrote myself:**
+
+- A checklist of export steps and gotchas for Windows and Web.
+- The idea and code for hiding the QUIT button on web.
+- The Git LFS zip workflow for storing builds.
+ 
+### Playable Build Evidence
+![Week 8 Windows Build](screenshots/week8-windows.png)
+![Week 8 Web Build](screenshots/week8-web.png)
+ 
+---
  
 ## Development Notes
  
@@ -405,10 +459,10 @@ The boss descends to its stop position and starts swaying side to side. After a 
 - **UI:** The menus, HUD, and game over screen are built in code on top of root nodes, with shared styling in `UIKit`
 - **Settings:** Player settings are stored in `user://settings.cfg`
 - **Save data:** Progress and high score are stored in `user://save.json`
+- **Builds:** Exports live in `builds/` as Git LFS–tracked zips; the unzipped folders are git-ignored
 - **Enemy AI:** The boss uses an enum-based state machine in `boss.gd`; boss projectiles live in `entities/bullets/boss_bullet.tscn`
-
 ---
-
+ 
 ## Known Issues & Roadmap
  
 - [x] Week 1: Engine setup and hello world
@@ -420,9 +474,14 @@ The boss descends to its stop position and starts swaying side to side. After a 
 - [x] Week 5: HUD, main menu with character select, game over screen, audio buses, colorblind-safe palette
 - [ ] Week 5 (remaining): final sound effects and music (placeholders for now) and the playtest write-up
 - [x] Week 6: AI enemy (boss state machine that fires aimed, dodgeable bullets)
+- [ ] Week 6 (remaining): fill in the "what I changed" and "bugs found" notes, add a screenshot; optional stretch: second enemy type
 - [x] Week 7: Juice (shake, hit-stop, coin tween), save/load with Continue
+- [ ] Week 7 (remaining): profiler results + optimization, second playtest write-up, fill in the "what I changed" and "bugs found" notes
 - [ ] Powerups (still planned; not part of the Week 7 sheet)
-- [ ] Week 8: Final polish and submission
+- [x] Week 8: Exported to Windows Desktop and Web, with a web-specific tweak (hidden QUIT button)
+- [ ] Week 8 (remaining): testing table, showcase feedback, and the team-Git practice (branch, pull request, merge conflict) on a practice repo
+- [ ] Final polish and submission
+
 ---
  
 ## License
