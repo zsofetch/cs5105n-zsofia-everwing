@@ -431,5 +431,5 @@ This project is developed as part of CS-5105N coursework.
  
 ---
  
-**Last Updated:** Week 6 (AI & Enemies)  
+**Last Updated:** Week 7 (Juice, Save & Load Optimization)  
 **Developer:** Zsofia Everwing
