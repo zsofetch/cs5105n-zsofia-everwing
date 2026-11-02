@@ -74,7 +74,9 @@ func _ready() -> void:
 		swatch_row.add_child(s)
 		swatches.append(s)
 
-	box.add_child(UIKit.button("QUIT", _on_quit))
+	# Web builds can't quit the browser tab, so only show QUIT on desktop
+	if not OS.has_feature("web"):
+		box.add_child(UIKit.button("QUIT", _on_quit))
 
 	_refresh_character()
 	_refresh_colorblind()

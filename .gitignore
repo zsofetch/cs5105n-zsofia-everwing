@@ -15,3 +15,8 @@ export_presets.cfg
 # System files
 .DS_Store
 Thumbs.db
+
+builds/windows/
+builds/web/
+builds/windows/
+builds/web/
