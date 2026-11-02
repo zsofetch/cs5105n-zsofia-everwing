@@ -138,6 +138,8 @@ func take_damage(amount: int = 1) -> void:
 	queue_redraw()
 	if hp <= 0:
 		is_dying = true
+		Juice.shake(16.0)       # NEW
+		Juice.hit_stop(0.12)    # NEW
 		AudioManager.play_sfx("explosion")
 		await get_tree().create_timer(0.06).timeout
 		boss_defeated.emit()

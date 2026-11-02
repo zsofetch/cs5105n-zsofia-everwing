@@ -11,7 +11,20 @@ extends Area2D
 @onready var sprite: Sprite2D = $Sprite2D
 
 var fall_velocity: float = 0.0
+var collected: bool = false     # NEW
 
+func _collect() -> void:
+	if collected:
+		return
+	collected = true
+	set_deferred("monitoring", false)   # stop detecting while it animates
+	# ...your existing Score.add_points(value) and coin sound here...
+	var t := create_tween().set_parallel(true)
+	t.tween_property(self, "scale", scale * 1.8, 0.15) \
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	t.tween_property(self, "modulate:a", 0.0, 0.15)
+	t.chain().tween_callback(queue_free)
+	
 func _ready() -> void:
 	add_to_group("coins")
 	body_entered.connect(_on_body_entered)
@@ -33,11 +46,18 @@ func _physics_process(delta: float) -> void:
 	position.y += fall_velocity * delta
 	sprite.rotation += spin_speed * delta
 	if position.y > get_viewport_rect().size.y + 60.0:
-		queue_free()
+		_collect()
 	
 func _on_body_entered(body: Node) -> void:
-	if body.is_in_group("player"):
-		Score.add_points(value)
-		AudioManager.play_sfx("coin", -6.0, 0.05)
-		queue_free()
-	
+	if collected or not body.is_in_group("player"):
+		return
+	collected = true
+	set_deferred("monitoring", false)   # stop detecting while it animates
+	Score.add_points(value)
+	AudioManager.play_sfx("coin", -6.0, 0.05)
+	# Pop up and fade out, then free
+	var t := create_tween().set_parallel(true)
+	t.tween_property(self, "scale", scale * 1.8, 0.15) \
+		.set_trans(Tween.TRANS_BACK).set_ease(Tween.EASE_OUT)
+	t.tween_property(self, "modulate:a", 0.0, 0.15)
+	t.chain().tween_callback(queue_free)

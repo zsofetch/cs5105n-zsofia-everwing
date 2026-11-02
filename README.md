@@ -351,7 +351,65 @@ The boss descends to its stop position and starts swaying side to side. After a 
 - **Settings:** Player settings are stored in `user://settings.cfg`
 - **Enemy AI:** The boss uses an enum-based state machine in `boss.gd`; boss projectiles live in `entities/bullets/boss_bullet.tscn`
 ---
+
+## Week 7: Juice, Save/Load & Optimization
  
+### Objectives & Overview
+ 
+- Layer more feedback onto actions: **screen shake**, **hit-stop**, and a **tweened** pickup effect.
+- **Save and load** progress so it persists after closing the game, with a **Continue** option on the main menu.
+- Use the **profiler** to find the biggest cost and make one optimization.
+- Run a second 5-minute peer playtest and act on the feedback.
+### Juice (Polish Pass)
+ 
+| Effect | Where | Details |
+|---|---|---|
+| Screen shake (small) | `enemy.gd` → `_die()` | `Juice.shake(3.0)` on every real kill |
+| Screen shake (big) + hit-stop | `player.gd` → `die()` | `Juice.shake(14.0)` + `Juice.hit_stop(0.1)` |
+| Screen shake (biggest) + hit-stop | `boss.gd` → `take_damage()` on the killing blow | `Juice.shake(16.0)` + `Juice.hit_stop(0.12)` |
+| Tweened coin pickup | `coin.gd` → `_on_body_entered()` | Coin scales up 1.8× with a back-ease and fades out in 0.15 s, then frees itself |
+ 
+- **Screen shake:** `levels/shake_camera.gd` is a `Camera2D` anchored top-left (so it behaves like having no camera) whose only job is to shake. `shake(strength)` sets a strength that decays every frame, and the camera `offset` is randomized by that strength. Its `process_mode` is Always so it keeps decaying when the game over screen pauses the tree. The HUD is on a `CanvasLayer`, so it stays still.
+- **Hit-stop:** `Juice.hit_stop()` drops `Engine.time_scale` to 0.05 for a fraction of a second, then restores it. The restore timer is created with `ignore_time_scale = true`; otherwise it would be slowed by the same time scale it is meant to restore.
+- **Juice autoload:** `autoload/juice.gd` finds the camera through the `"shake_camera"` group, so any script can call `Juice.shake()` without a node reference.
+### Save / Load
+ 
+- **Storage:** `autoload/save_data.gd` (`SaveData`) writes a small JSON file to `user://save.json` containing `high_score`, `has_progress`, `level`, and `score`.
+- **When it saves:**
+  - `checkpoint(next_level, score)`: when a boss is defeated and the next level is unlocked (saved *before* the banner so quitting mid-banner keeps progress).
+  - `submit_score(score)`: when a run ends by death or by winning, updating the high score if beaten.
+  - `clear_progress()`: when the whole game is completed, so there is nothing to continue.
+- **When it loads:** `SaveData._ready()` calls `load_game()` on launch. A missing or corrupt file is ignored instead of crashing.
+- **Continue button:** `main_menu.gd` shows `CONTINUE (LEVEL n)` only when `SaveData.has_progress` is true, plus a `BEST: n` label once a high score exists. Pressing it sets `SaveData.continuing = true` and loads the game scene. `game.gd` reads that flag in `_ready()`, sets `current_level`, restores the score with `Score.add_points()`, and clears the flag. START always begins a fresh run.
+- **Known limitation:** Retry on the game over screen still reloads the scene at Level 1. Only Continue uses the saved checkpoint.
+
+### AI-Assisted Development
+ 
+**AI-drafted:**
+- The `ShakeCamera` script and the `Juice` autoload (shake and hit-stop).
+- The first version of `SaveData` (JSON save/load pattern) and the hooks in `game.gd` and `main_menu.gd`.
+- The coin pickup tween.
+ 
+### Playable Build Evidence
+
+<!-- ![Week 7 Continue Button](screenshots/week7-continue.png) -->
+<!-- ![Week 7 Save File](screenshots/week7-save-file.png) -->
+ 
+---
+ 
+## Development Notes
+ 
+- **Engine:** This project uses **Godot 4.x** with GDScript for scripting
+- **Asset Management:** All binary assets (images, audio) are tracked via Git LFS to keep the repository lightweight
+- **Scenes:** Each major game component is organized as a separate scene for modularity and reusability
+- **Autoloads:** `Score`, `GameState`, `AudioManager`, `Juice`, and `SaveData` are registered under Project Settings → Globals → Autoload
+- **UI:** The menus, HUD, and game over screen are built in code on top of root nodes, with shared styling in `UIKit`
+- **Settings:** Player settings are stored in `user://settings.cfg`
+- **Save data:** Progress and high score are stored in `user://save.json`
+- **Enemy AI:** The boss uses an enum-based state machine in `boss.gd`; boss projectiles live in `entities/bullets/boss_bullet.tscn`
+
+---
+
 ## Known Issues & Roadmap
  
 - [x] Week 1: Engine setup and hello world
@@ -363,7 +421,8 @@ The boss descends to its stop position and starts swaying side to side. After a 
 - [x] Week 5: HUD, main menu with character select, game over screen, audio buses, colorblind-safe palette
 - [ ] Week 5 (remaining): final sound effects and music (placeholders for now) and the playtest write-up
 - [x] Week 6: AI enemy (boss state machine that fires aimed, dodgeable bullets)
-- [ ] Week 7: Powerups, juice, save/load, and optimization
+- [x] Week 7: Juice (shake, hit-stop, coin tween), save/load with Continue
+- [ ] Powerups (still planned; not part of the Week 7 sheet)
 - [ ] Week 8: Final polish and submission
 ---
  

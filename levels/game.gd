@@ -48,9 +48,14 @@ var wave_kill_count: int = 0
 
 func _ready() -> void:
 	Score.reset()
-	AudioManager.play_music("bgm")               # NEW
+	AudioManager.play_music("bgm")
 	hud = HUD_SCENE.instantiate()
 	add_child(hud)
+	# NEW: resume from a saved checkpoint if the player pressed CONTINUE
+	if SaveData.continuing:
+		SaveData.continuing = false
+		current_level = clampi(SaveData.saved_level, 1, LEVELS.size())
+		Score.add_points(SaveData.saved_score)
 	_setup_lanes()
 	_load_level(current_level)
 	spawner.wait_time = 0.25
@@ -147,9 +152,12 @@ func _on_boss_defeated() -> void:
 	boss_active = false
 	is_transitioning = true
 	if current_level >= LEVELS.size():
+		SaveData.submit_score(Score.score)     # NEW
+		SaveData.clear_progress()              # NEW: game finished, nothing to continue
 		await _show_banner("YOU WIN!", 3.0)
 		get_tree().change_scene_to_file(MAIN_MENU)
 		return
+	SaveData.checkpoint(current_level + 1, Score.score)   # NEW
 	await _show_banner("%s COMPLETE" % cfg["name"], 2.0)
 	if is_game_over:
 		return
@@ -160,8 +168,9 @@ func _on_player_died() -> void:
 	if is_game_over:
 		return
 	is_game_over = true
+	SaveData.submit_score(Score.score)     # NEW
 	spawner.stop()
-	await get_tree().create_timer(0.8).timeout   # let the hit sink in
+	await get_tree().create_timer(0.8).timeout
 	var screen = GAME_OVER_SCENE.instantiate()
 	add_child(screen)
 	screen.setup(Score.score)

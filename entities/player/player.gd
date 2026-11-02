@@ -71,8 +71,10 @@ func die() -> void:
 	if is_dead:
 		return
 	is_dead = true
-	AudioManager.play_sfx("player_death")        # NEW
-	AudioManager.stop_music()                    # NEW
+	AudioManager.play_sfx("player_death")
+	AudioManager.stop_music()
+	Juice.shake(14.0)         # NEW
+	Juice.hit_stop(0.1)       # NEW
 	died.emit()
 	set_physics_process(false)
 	hide()

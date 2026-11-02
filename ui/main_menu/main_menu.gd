@@ -50,6 +50,14 @@ func _ready() -> void:
 	name_label = UIKit.label("", 28)
 	box.add_child(name_label)
 
+	# NEW: best score and CONTINUE (only shown if there is a saved run)
+	if SaveData.high_score > 0:
+		box.add_child(UIKit.label("BEST: %d" % SaveData.high_score, 20))
+	var continue_button: Button = null
+	if SaveData.has_progress:
+		continue_button = UIKit.button("CONTINUE (LEVEL %d)" % SaveData.saved_level, _on_continue)
+		box.add_child(continue_button)
+
 	var start := UIKit.button("START", _on_start)
 	box.add_child(start)
 
@@ -71,7 +79,10 @@ func _ready() -> void:
 	_refresh_character()
 	_refresh_colorblind()
 	AudioManager.play_music("bgm")
-	start.grab_focus()
+	if continue_button:
+		continue_button.grab_focus()
+	else:
+		start.grab_focus()
 
 func _on_prev() -> void:
 	GameState.selected = wrapi(GameState.selected - 1, 0, GameState.CHARACTERS.size())
@@ -97,7 +108,12 @@ func _refresh_colorblind() -> void:
 	swatches[2].color = GameState.hp_color(0.2)   # nearly dead
 
 func _on_start() -> void:
+	SaveData.continuing = false
 	get_tree().change_scene_to_file(GAME_SCENE)
 
+func _on_continue() -> void:
+	SaveData.continuing = true
+	get_tree().change_scene_to_file(GAME_SCENE)
+	
 func _on_quit() -> void:
 	get_tree().quit()

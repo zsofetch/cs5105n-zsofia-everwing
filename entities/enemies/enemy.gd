@@ -64,7 +64,8 @@ func take_damage(amount: int = 1) -> void:
 		modulate = Color(1.0, 1.0, 1.0)
 
 func _die() -> void:
-	AudioManager.play_sfx("explosion", -2.0, 0.1)   # NEW
+	AudioManager.play_sfx("explosion", -2.0, 0.1)
+	Juice.shake(3.0)          # NEW
 	_drop_coin()
 	_spawn_explosion()
 	died.emit()

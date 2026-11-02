@@ -24,6 +24,8 @@ buses/default_bus_layout="uid://ss3v0b6i2gme"
 Score="*uid://dyeg5g28s2pf7"
 GameState="*uid://n1budois46a1"
 AudioManager="*uid://cvucl28qwuwl0"
+Juice="*uid://xtquetu7tpx0"
+SaveData="*uid://c1048fo37311y"
 
 [display]
 
